@@ -1,0 +1,28 @@
+{% load static %}
+
+
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img src="{{ Product.image.url }}" width="100%" id="ProductImg">
+
+
+        </div>
+        <div class="col-2">
+            <p>{{ Product.title}}</p>
+            <h1>{{ Product.title}}</h1>
+            <h4>{{ Product.price}}</h4>
+            <form method="post" action="{% url 'add_to_cart' %}" enctype="multipart/form-data">
+             {% csrf_token %}
+             <input type="hidden" name="product_id" value="{{ Product.id }}">
+            <input type="number" name="quantity" value="1">
+            <button type="submit" class="btn">Add To Cart</button>
+            </form>
+            
+
+            <h3>Product Details <i class="fa fa-indent"></i></h3>
+            <br>
+            <p>{{ Product.description }}</p>
+        </div>
+    </div>
+</div>

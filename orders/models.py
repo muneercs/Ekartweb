@@ -1,6 +1,10 @@
+
+from django.contrib.auth.models import User
 from django.db import models
-from customers.models import customer
-from products.models import product
+from customers.models import Customer
+from products.models import Product
+
+ 
 
 # Create your models here.
 class Order(models.Model):
@@ -14,15 +18,26 @@ class Order(models.Model):
     ORDER_REJECTED=4
     STATUS_CHOICE=((ORDER_PROCESSED,"ORDER_PROCESSED"),
                    (ORDER_DELIVERED,"ORDER_DELIVERED"),
-                   (ORDER_REJECTED,"ORDER_REJECTED"))
+                   (ORDER_REJECTED,"ORDER_REJECTED"),
+                   (ORDER_CONFIRMED,"ORDER_CONFIRMED"))
     order_status=models.IntegerField(choices=STATUS_CHOICE,default=CART_STAGE)
-    Owner=models.ForeignKey(customer,on_delete=models.SET_NULL,null=True,related_name='orders')
+    total_price=models.FloatField(default=0)
+    Owner=models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True,related_name='orders')
     delete_status=models.IntegerField(choices=DELETE_CHOICES,default=LIVE)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
+    def __str__(self) -> str:
+
+        return "order-{}-{}".format(self.id,self.Owner.name)
+   
+
 class OrderedItem(models.Model):
-    product=models.ForeignKey(product,related_name='added_carts',on_delete=models.SET_NULL,null=True)
+    product=models.ForeignKey(Product,related_name='added_carts',on_delete=models.SET_NULL,null=True)
     quantity=models.IntegerField(default=1)
     owner=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='added_items')
+
+
+
+
 
