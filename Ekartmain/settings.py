@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-qy4v7dhi8s9km+ip-s+689((7@vz6nrx3cx4o8c6zf@e(z9u8d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ekartweb.onrender.com']
+ALLOWED_HOSTS = ['https://ekartweb-d2bn.onrender.com']
 
 
 # Application definition
